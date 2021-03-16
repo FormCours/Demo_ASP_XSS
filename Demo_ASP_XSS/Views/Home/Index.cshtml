@@ -1,0 +1,33 @@
+﻿@model IEnumerable<String>
+
+@{
+   ViewBag.Title = "Index";
+}
+
+<h2>Messages</h2>
+<h4>Version protégé</h4>
+<ul>
+   @foreach (string msg in Model)
+   {
+      // Le razor echape automatique le html dans les strings
+      <li>@msg</li>
+   }
+</ul>
+
+<h4>Version exposé à la fail</h4>
+<ul>
+   @foreach (string msg in Model)
+   {
+      // @Html.Raw(...) permet de levé cette sécurité
+      <li>@Html.Raw(msg)</li>
+   }
+</ul>
+
+<h3>Ajouter un message</h3>
+@using (Html.BeginForm("index", "home", "post"))
+{
+   <div>
+      <textarea name="nouveauMessage"></textarea>
+   </div>
+   <input type="submit" value="Ajouter" />
+}
